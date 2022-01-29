@@ -85,6 +85,13 @@ int qrtr_sendto(int sock, uint32_t node, uint32_t port, const void *data, unsign
 	sq.sq_node = node;
 	sq.sq_port = port;
 
+	printf("qrtr_sendto(%d, %d, %d, %p, %d)\n", sock, node, port, data, sz);
+	for (size_t i = 0; i < sz; i++)
+	{
+		printf("\\%02x", ((uint8_t *)data)[i]);
+	}
+	printf("\n");
+
 	rc = sendto(sock, data, sz, 0, (void *)&sq, sizeof(sq));
 	if (rc < 0) {
 		PLOGE("sendto()");
